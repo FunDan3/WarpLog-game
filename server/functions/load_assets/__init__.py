@@ -1,23 +1,26 @@
-from aiofiles import os, open
+from aiofiles import os as aos
+from aiofiles import open
+import os
 import json
 
 client_path = "../client/"
 data = None
 
+banned_extensions = [".xcf"] #to save ram and user download time
 
 async def load_folder(real_path, imaginary_path = None):
-	print(imaginary_path)
 	if not imaginary_path:
 		imaginary_path = "./"
 	files = []
-	filelist = await os.listdir(real_path)
+	filelist = await aos.listdir(real_path)
 	for file in filelist:
 		file_path = real_path+file
 		imaginary_file_path = imaginary_path + file
-		print(file_path)
-		if await os.path.isdir(file_path):
+		if await aos.path.isdir(file_path):
 			files += await load_folder(file_path+"/", imaginary_file_path+"/")
 		else:
+			if os.path.splitext(file_path)[1] in banned_extensions:
+				continue
 			async with open(file_path, "rb") as f:
 				data = await f.read()
 			files.append((imaginary_file_path, data))
