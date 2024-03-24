@@ -43,6 +43,9 @@ class api:
 	async def connect(self):
 		self.connection = aconn()
 		await self.connection.connect(self.ip, self.port)
+	async def close(self):
+		await self.connection.write(code_map["close"])
+		await self.connection.close()
 	async def load_assets(self, path):
 		await self.connection.write(code_map["load_assets"])
 		json_size = int.from_bytes(await self.connection.read(32), "big", signed = False)
