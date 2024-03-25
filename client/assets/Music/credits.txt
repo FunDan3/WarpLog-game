@@ -1,0 +1,8 @@
+menu1.mp3 (atmosphere-dark-3-16803) - Pixbay
+menu2.mp3 (sci-fi-ambient-drone-16906) - Pixbay
+
+ui_input.mp3 (zapsplat_science_fiction_computer_console_beep_short_ui_99988) - Zapsplat
+success.mp3 (zapsplat_science_fiction_ui_computerized_tone_alert_data_not_accepted_100005) - Zapsplat
+error.mp3 (zapsplat_science_fiction_ui_computerized_tone_alert_error_incorrect_100009) - Zapsplat
+warning.mp3 (zapsplat_science_fiction_ui_computerized_tone_alert_warning_beep_100017) - Zapsplat
+cancel.mp3 (zapsplat_science_fiction_ui_computerized_tone_alert_error_sad_negative_100010) - Zapsplat
