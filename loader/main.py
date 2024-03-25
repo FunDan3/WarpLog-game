@@ -4,6 +4,7 @@ import pygame
 import asyncio
 import os
 import sys
+import time
 from lib import server_api
 
 def remove_recursive(path): #rm -rf is not an option because I want windows support.
@@ -17,10 +18,11 @@ def remove_recursive(path): #rm -rf is not an option because I want windows supp
 
 async def download_game():
 	api = server_api.api("localhost")
+	start_time = time.time()
 	await api.connect()
 	await api.load_assets(path = "./game/")
 	await api.close()
-
+	print(f"Game was downloaded in {round(time.time()-start_time, 1)}s")
 def start_game():
 	os.chdir("./game/")
 	original_script_path = sys.path[0]
