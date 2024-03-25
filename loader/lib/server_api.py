@@ -53,13 +53,11 @@ class api:
 		total_files_size = json_data["total_size"]
 		loaded_files_size = 0
 		event_loop = asyncio.get_event_loop()
-		tasks = []
-		for file_path, file_size in json_data["file_sizes"].items():
+		for file_path, file_size in json_data["file_sizes"]:
 			loaded_files_size += file_size
 			print(f"Downloading file {file_path} {round(loaded_files_size/total_files_size*100, 2)}%")
 			file_path = file_path.replace("./", path)
-
-			file_content = await self.connection.read(file_size)
-			tasks.append(write_file(file_path, file_content))
-		print(f"Writing files...")
-		await asyncio.gather(*tasks)
+			file_content = b""
+			while file_size-len(file_content):
+				file_content += await self.connection.read(file_size-len(file_content))
+			await write_file(file_path, file_content)

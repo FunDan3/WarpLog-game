@@ -30,13 +30,13 @@ async def load_assets():
 	if data:
 		return data
 	files = []
-	json_data = {"file_sizes": {}}
+	json_data = {"file_sizes": []}
 	json_data["total_size"] = 0
 
 	files = await load_folder(client_path)
 	contents = []
 	for path, content in files:
-		json_data["file_sizes"][path] = len(content)
+		json_data["file_sizes"].append((path, len(content)))
 		json_data["total_size"] += len(content)
 		contents.append(content)
 	json_data = json.dumps(json_data).encode("utf-8")
