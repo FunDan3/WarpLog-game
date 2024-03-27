@@ -1,2 +1,2 @@
-# project-space-game-temp-
-Temporary name for upcoming game.
+# Warp Log game
+Space game. I took inspiration from hades star game and roblox game "starscape".
