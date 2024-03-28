@@ -1,0 +1,2 @@
+class NotLayerComponent(Exception):
+	pass

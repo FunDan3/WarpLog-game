@@ -1,23 +1,7 @@
 import pygame
 import asyncio
 import sys
-
-class layer:
-	components = None
-
-	visible = True
-	interactive = True
-	def __init__(self, components = None):
-		if not components:
-			components = []
-		self.components = components
-	def render(self, screen):
-		for component in components:
-			component.render(screen)
-	def event(self, event):
-		for component in components:
-			if component.interactable:
-				component.event(event)
+from . import components, exceptions
 class renderer:
 	screen = None
 	layers = None
@@ -39,6 +23,11 @@ class renderer:
 		for layer in self.layers[::-1]:
 			if layer.visible and layer.interactive:
 				return layer
+
+	def add_layer(self, layer):
+		if type(layer) != components.layer:
+			raise exceptions.NotLayerComponent("Renderer should only have layers.")
+		self.layers.append(layer)
 
 	async def loop(self):
 		while True:
