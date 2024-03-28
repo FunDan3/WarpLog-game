@@ -5,9 +5,11 @@ from . import components, exceptions
 class renderer:
 	screen = None
 	layers = None
+	offset = None
 	def __init__(self):
 		self.screen = pygame.display.set_mode((1980, 1080), pygame.FULLSCREEN)
 		self.layers = []
+		self.offset = (0, 0) #should be processed by components. Some may ignore it.
 
 	async def one_time_loop(self):
 		for event in pygame.event.get():
@@ -27,6 +29,8 @@ class renderer:
 	def add_layer(self, layer):
 		if type(layer) != components.layer:
 			raise exceptions.NotLayerComponent("Renderer should only have layers.")
+		layer.renderer = self
+		layer.parent = self
 		self.layers.append(layer)
 
 	async def loop(self):

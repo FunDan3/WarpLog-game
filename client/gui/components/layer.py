@@ -14,3 +14,7 @@ class layer(default_component):
 		for component in components:
 			if component.interactable:
 				component.event(event)
+	def add_component(self, component):
+		component.renderer = self.renderer
+		component.parent = self
+		self.components.append(component)

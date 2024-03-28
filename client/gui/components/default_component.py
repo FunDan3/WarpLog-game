@@ -1,4 +1,6 @@
 class default_component:
+	parent = None
+	renderer = None
 	visible = True
 	interactive = False
 	def __init__(self):
