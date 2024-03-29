@@ -5,7 +5,7 @@ class default_component:
 	interactive = False
 	def __init__(self):
 		pass
-	def render(self, screen):
+	def render_on(self, surface):
 		pass
 	def event(self, event):
 		pass

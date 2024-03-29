@@ -17,17 +17,19 @@ class renderer:
 				pygame.quit()
 				sys.exit("Program finished.")
 				self.get_focused_layer().event(event)
+		self.screen.fill((0, 0, 0))
 		for layer in self.layers:
 			if layer.visible:
-				layer.render(self.screen)
+				layer.render_on(self.screen)
+		pygame.display.flip()
 
 	def get_focused_layer(self):
 		for layer in self.layers[::-1]:
 			if layer.visible and layer.interactive:
 				return layer
 
-	def add_layer(self, layer):
-		if type(layer) != components.layer:
+	def add_component(self, layer):
+		if type(layer) not in [components.layer, components.window]:
 			raise exceptions.NotLayerComponent("Renderer should only have layers.")
 		layer.renderer = self
 		layer.parent = self

@@ -7,9 +7,9 @@ class layer(default_component):
 		if not components:
 			components = []
 		self.components = components
-	def render(self, screen):
-		for component in components:
-			component.render(screen)
+	def render_on(self, surface):
+		for component in self.components:
+			component.render(surface)
 	def event(self, event):
 		for component in components:
 			if component.interactable:
