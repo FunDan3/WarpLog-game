@@ -7,6 +7,7 @@ client_path = "../client/"
 data = None
 
 banned_extensions = [".xcf"] #to save ram and user download time
+banned_names = ["__pycache__"]
 
 async def load_folder(real_path, imaginary_path = None):
 	if not imaginary_path:
@@ -14,6 +15,8 @@ async def load_folder(real_path, imaginary_path = None):
 	files = []
 	filelist = await aos.listdir(real_path)
 	for file in filelist:
+		if file in banned_names:
+			continue
 		file_path = real_path+file
 		imaginary_file_path = imaginary_path + file
 		if await aos.path.isdir(file_path):
