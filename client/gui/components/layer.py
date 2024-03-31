@@ -11,8 +11,8 @@ class layer(default_component):
 		for component in self.components:
 			component.render(surface)
 	def event(self, event):
-		for component in components:
-			if component.interactable:
+		for component in self.components:
+			if component.interactive:
 				component.event(event)
 	def add_component(self, component):
 		component.renderer = self.renderer

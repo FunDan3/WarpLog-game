@@ -5,18 +5,16 @@ from . import components, exceptions
 class renderer:
 	screen = None
 	layers = None
-	offset = None
 	def __init__(self):
 		self.screen = pygame.display.set_mode((1980, 1080), pygame.FULLSCREEN)
 		self.layers = []
-		self.offset = (0, 0) #should be processed by components. Some may ignore it.
 
 	async def one_time_loop(self):
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				sys.exit("Program finished.")
-				self.get_focused_layer().event(event)
+			self.get_focused_layer().event(event)
 		self.screen.fill((0, 0, 0))
 		for layer in self.layers:
 			if layer.visible:
