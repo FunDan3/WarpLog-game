@@ -27,7 +27,7 @@ class image_button(default_component):
 		self.image = image
 
 		self.filler_color = filler_color
-		self.filler = position + size
+		self.filler = list(position) + list(size)
 
 		self.border_color = border_color
 		self.border = [

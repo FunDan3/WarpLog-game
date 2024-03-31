@@ -14,7 +14,9 @@ class renderer:
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				sys.exit("Program finished.")
-			self.get_focused_layer().event(event)
+			focused_layer = self.get_focused_layer()
+			if focused_layer:
+				focused_layer.event(event)
 		self.screen.fill((0, 0, 0))
 		for layer in self.layers:
 			if layer.visible:
@@ -26,12 +28,14 @@ class renderer:
 			if layer.visible and layer.interactive:
 				return layer
 
-	def add_component(self, layer):
-		if type(layer) not in [components.layer, components.window]:
-			raise exceptions.NotLayerComponent("Renderer should only have layers.")
+	def add_component(self, layer, bypass_layer_check = False):
+		if not bypass_layer_check:
+			if type(layer) not in [components.layer, components.window]:
+				raise exceptions.NotLayerComponent("Renderer should only have layers.")
 		layer.renderer = self
 		layer.parent = self
 		self.layers.append(layer)
+		layer.on_added()
 
 	async def loop(self):
 		while True:

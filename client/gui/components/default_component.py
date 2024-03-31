@@ -9,5 +9,7 @@ class default_component:
 		pass
 	def render_on(self, surface):
 		pass
+	def on_added(self):
+		pass
 	def event(self, event):
 		pass

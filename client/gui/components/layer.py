@@ -23,3 +23,4 @@ class layer(default_component):
 		component.parent = self
 		component.offset = self.offset
 		self.components.append(component)
+		component.on_added()

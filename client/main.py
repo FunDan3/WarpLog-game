@@ -12,9 +12,6 @@ def on_click():
 
 async def main():
 	window = components.window(position = (128, 128), size = (512, 512), border_size = 2)
-	window.add_component(
-		components.image_button(position = (128, 128), on_click = on_click, image = pygame.image.load("./assets/images/credit.png"))
-	)
 	renderer.add_component(window)
 	await renderer.loop()
 
