@@ -3,6 +3,8 @@ class default_component:
 	renderer = None
 	visible = True
 	interactive = False
+
+	offset = [0, 0]
 	def __init__(self):
 		pass
 	def render_on(self, surface):
