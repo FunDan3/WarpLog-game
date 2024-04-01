@@ -41,8 +41,8 @@ class window(layer): #doesnt offset because it is part of UI
 
 	def on_added(self):
 		if self.closable:
-			x_size = 32
-			x_border_size = 6
+			x_size = 24
+			x_border_size = 4
 			x_image = pygame.Surface((x_size, x_size))
 			pygame.draw.rect(x_image, (255, 255, 255), ((x_size-x_size/4)//2, 0, x_size//4, x_size))
 			pygame.draw.rect(x_image, (255, 255, 255), (0, (x_size-x_size/4)//2, x_size, x_size//4))

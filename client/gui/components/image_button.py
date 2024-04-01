@@ -10,15 +10,17 @@ class image_button(default_component):
 
 	border_color = None
 	border = None
+	roundness = None
+
 
 	filler_color = None
 	filler = None
-	def __init__(self, position, image, on_click, border_size = 2, border_color = None, filler_color = None):
+	def __init__(self, position, image, on_click, border_size = 2, border_color = None, filler_color = None, roundness = 32):
 		if not border_color:
 			border_color = [255] * 3
 		if not filler_color:
 			filler_color = [128] * 3
-
+		self.roundness = roundness / 100
 		size = image.get_size()
 
 		self.on_click = on_click
@@ -37,8 +39,8 @@ class image_button(default_component):
                         size[1] + border_size*2]
 
 	def render_on(self, surface):
-		pygame.draw.rect(surface, self.border_color, self.border)
-		pygame.draw.rect(surface, self.filler_color, self.filler)
+		pygame.draw.rect(surface, self.border_color, self.border, border_radius = round(max(self.border[2:])/2*self.roundness))
+		pygame.draw.rect(surface, self.filler_color, self.filler, border_radius = round(max(self.filler[2:])/2*self.roundness))
 		surface.blit(self.image, self.position)
 	def event(self, event):
 		if event.type == pygame.MOUSEBUTTONDOWN:
