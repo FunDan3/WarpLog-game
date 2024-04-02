@@ -2,8 +2,6 @@ from .default_component import default_component
 
 class group(default_component):
 	components = None
-	interactive = True
-
 	def __init__(self, *components):
 		if not components:
 			components = []

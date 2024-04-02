@@ -5,7 +5,7 @@ import pygame
 
 class window(layer): #doesnt offset because it is part of UI
 	position = None # [x_pos, y_pos]
-	color = None #[red, green, blue]
+	filler_color = None #[red, green, blue]
 	size = None # [x_size, y_size]
 
 	border = None #[x_pos, y_pos, x_size, y_size]
@@ -13,14 +13,14 @@ class window(layer): #doesnt offset because it is part of UI
 
 	closable = True
 	close_button = None
-	def __init__(self, position, size, border_size = 2, border_color = None, color = None, components = None, closable = True):
+	def __init__(self, position, size, border_size = 2, border_color = None, filler_color = None, components = None, closable = True):
 		if not components:
 			components = []
-		if not color:
-			color = [64] * 3
+		if not filler_color:
+			filler_color = [64] * 3
 		if not border_color:
 			border_color = [255] * 3
-		self.color = color
+		self.filler_color = filler_color
 		self.border_color = border_color
 
 		self.components = components
@@ -62,7 +62,7 @@ class window(layer): #doesnt offset because it is part of UI
 	def render_on(self, surface):
 		pygame.draw.rect(surface, self.border_color, self.border)
 		window_surface = pygame.Surface(self.size)
-		window_surface.fill(self.color)
+		window_surface.fill(self.filler_color)
 		for component in self.components:
 			component.render_on(window_surface)
 		surface.blit(window_surface, self.position)
