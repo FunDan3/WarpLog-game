@@ -1,15 +1,15 @@
-from .default_component import default_component
+from .layer import layer
 
-class group(default_component):
-	components = None
+class group(layer):
 	def __init__(self, *components):
-		if not components:
-			components = []
 		self.components = components
 
 	def add_component(self, component):
+		component.renderer = self.renderer
+		component.parent = self
+		component.offset = self.offset
 		self.components.append(component)
 
 	def on_added(self):
 		for component in self.components:
-			self.parent.add_component(component)
+			component.on_added()
