@@ -11,7 +11,7 @@ class layer(default_component):
 
 	def render_on(self, surface):
 		for component in self.components:
-			component.render(surface)
+			component.render_on(surface)
 
 	def event(self, event):
 		for component in self.components:
