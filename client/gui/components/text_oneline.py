@@ -51,4 +51,6 @@ class text_oneline(default_component):
 	def render_on(self, surface):
 		pygame.draw.rect(surface, self.border_color, self.border)
 		pygame.draw.rect(surface, self.filler_color, self.position + self.size)
-		surface.blit(self.rendered_surface, self.position)
+		text_position = [self.position[0] + (self.size[0] - self.rendered_surface.get_width())//2,
+			self.position[1] + (self.size[1] - self.rendered_surface.get_height())//2]
+		surface.blit(self.rendered_surface, text_position)
