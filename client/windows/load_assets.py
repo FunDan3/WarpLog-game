@@ -1,6 +1,7 @@
 import os
 import pygame
 import asyncio
+import time
 from gui import components
 
 class folder:
@@ -9,6 +10,7 @@ class folder:
 			setattr(self, key, value)
 
 async def load_assets(renderer, asset_map):
+	start_time = time.time()
 	total_filesize = sum([os.path.getsize(load_data[1]) for name, load_data in asset_map.items()])
 	loaded_filesize = 0
 	window = components.layer()
@@ -19,7 +21,6 @@ async def load_assets(renderer, asset_map):
 	renderer.add_component(window)
 
 	assets = folder()
-
 	for name, load_data in asset_map.items():
 		loading_method, file = load_data
 		text.update_text(f"Loading file '{file}'")
@@ -37,4 +38,6 @@ async def load_assets(renderer, asset_map):
 		loaded_filesize += file_size
 		progress_bar.set_quantity(loaded_filesize, total_filesize)
 	await renderer.empty_components()
+	print(f"Loaded assets in {time.time() - start_time} seconds")
 	return assets
+
