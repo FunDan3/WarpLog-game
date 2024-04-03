@@ -14,8 +14,9 @@ class text_oneline(default_component):
 
 	filler_color = None
 
+	boxed = None
 
-	def __init__(self, position, size, text, color = None, border_size = 2, border_color = None, filler_color = None, font = None):
+	def __init__(self, position, size, text, color = None, border_size = 2, border_color = None, filler_color = None, font = None, boxed = True):
 		if not border_color:
 			border_color = [255] * 3
 		if not filler_color:
@@ -33,6 +34,8 @@ class text_oneline(default_component):
 		self.font = font
 		self.update_text(text)
 
+		self.boxed = boxed
+
 		self.filler_color = filler_color
 
 		self.border_color = border_color
@@ -49,8 +52,9 @@ class text_oneline(default_component):
 		self.rendered_surface = pygame.transform.scale_by(rendered_text, min(factors))
 
 	def render_on(self, surface):
-		pygame.draw.rect(surface, self.border_color, self.border)
-		pygame.draw.rect(surface, self.filler_color, self.position + self.size)
+		if self.boxed:
+			pygame.draw.rect(surface, self.border_color, self.border)
+			pygame.draw.rect(surface, self.filler_color, self.position + self.size)
 		text_position = [self.position[0] + (self.size[0] - self.rendered_surface.get_width())//2,
 			self.position[1] + (self.size[1] - self.rendered_surface.get_height())//2]
 		surface.blit(self.rendered_surface, text_position)

@@ -37,6 +37,10 @@ class renderer:
 		self.layers.append(layer)
 		layer.on_added()
 
+	async def empty_components(self):
+		self.layers = []
+		await self.one_time_loop()
+
 	async def loop(self):
 		while True:
 			await asyncio.gather(self.one_time_loop(), asyncio.sleep(1/60))
