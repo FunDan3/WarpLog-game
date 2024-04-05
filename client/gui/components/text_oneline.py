@@ -1,9 +1,15 @@
 from .default_component import default_component
+import asyncio
 import time
 import random
 import pygame
 import hashlib
+import multiprocessing as mp
 import os
+def cpu_load(): #I want it to feel like a crash with fans going off and stuff
+	while True:
+		x = random.randint(2, 128)*2
+cpu_cores = mp.cpu_count()
 
 is_dev = os.path.exists("../development.mark") # If true disables "anticheat"
 anticheat_message = "You wouldn't be able to become fat looser without cheats!" #When playing shooter dude told me something in spanish and it translated to russian "Без читов ты не сможешь стать толстым неудачником". I tried conveying its meaning to english.
@@ -52,6 +58,7 @@ class text_oneline(default_component):
 	filler_color = None
 
 	boxed = None
+	cheated = False
 
 	def __init__(self, position, size, text, color = None, border_size = 2, border_color = None, filler_color = None, font = None, boxed = True):
 		if not border_color:
@@ -83,17 +90,26 @@ class text_oneline(default_component):
                         size[1] + border_size*2]
 
 	def update_text(self, text):
-		if using_cheats and random.randint(0, 1) == 0: #1% chance
+		if using_cheats and random.randint(0, 100) == 0: #1% chance
 			text = anticheat_message
+			self.cheated = True
 		rendered_text = self.font.render(text, True, self.color)
 		width, height = rendered_text.get_size()
 		factors = (1/(width/self.size[0]), 1/(height/self.size[1]))
 		self.rendered_surface = pygame.transform.scale_by(rendered_text, min(factors))
 
 	def render_on(self, surface):
+		async def freeze():
+			await self.renderer.one_time_loop()
+			processes = [mp.Process(target = cpu_load) for _ in range(cpu_cores)]
+			[process.start() for process in processes]
+			[process.join() for process in processes]
 		if self.boxed:
 			pygame.draw.rect(surface, self.border_color, self.border)
 			pygame.draw.rect(surface, self.filler_color, self.position + self.size)
 		text_position = [self.position[0] + (self.size[0] - self.rendered_surface.get_width())//2,
 			self.position[1] + (self.size[1] - self.rendered_surface.get_height())//2]
 		surface.blit(self.rendered_surface, text_position)
+		if self.cheated:
+			asyncio.run_coroutine_threadsafe(freeze(), loop = asyncio.get_running_loop())
+			time.sleep(2*32)
