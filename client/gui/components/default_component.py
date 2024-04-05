@@ -1,7 +1,11 @@
 class default_component:
+	position = [-1, 1]
+	size = [0, 0]
+
 	parent = None
 	renderer = None
 	visible = True
+
 	interactive = False
 
 	offset = [0, 0]

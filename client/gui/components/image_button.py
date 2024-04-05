@@ -6,6 +6,7 @@ class image_button(default_component):
 	on_click = None
 
 	position = None
+	size = None
 	image = None
 
 	border_color = None
@@ -21,7 +22,7 @@ class image_button(default_component):
 		if not filler_color:
 			filler_color = [128] * 3
 		self.roundness = roundness / 100
-		size = image.get_size()
+		self.size = image.get_size()
 
 		self.on_click = on_click
 
@@ -29,7 +30,7 @@ class image_button(default_component):
 		self.image = image
 
 		self.filler_color = filler_color
-		self.filler = list(position) + list(size)
+		self.filler = position + self.size
 
 		self.border_color = border_color
 		self.border = [

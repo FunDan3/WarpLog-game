@@ -11,7 +11,7 @@ class window(layer): #doesnt offset because it is part of UI
 	border = None #[x_pos, y_pos, x_size, y_size]
 	border_color = None
 
-	closable = True
+	closable = None
 	close_button = None
 	def __init__(self, position, size, border_size = 2, border_color = None, filler_color = None, components = None, closable = True):
 		if not components:
@@ -23,6 +23,7 @@ class window(layer): #doesnt offset because it is part of UI
 		self.filler_color = filler_color
 		self.border_color = border_color
 
+		self.closable = closable
 		self.components = components
 		self.position = position
 		self.size = size
@@ -47,7 +48,8 @@ class window(layer): #doesnt offset because it is part of UI
 			pygame.draw.rect(x_image, (255, 255, 255), ((x_size-x_size/4)//2, 0, x_size//4, x_size))
 			pygame.draw.rect(x_image, (255, 255, 255), (0, (x_size-x_size/4)//2, x_size, x_size//4))
 			x_image = pygame.transform.rotate(x_image, 45)
-			self.close_button = components.image_button(image = x_image, on_click = self.close, position = [self.position[0] + self.size[0]-x_size//2-x_border_size, self.position[1]-x_size//2-x_border_size], border_size = x_border_size)
+			if self.closable:
+				self.close_button = components.image_button(image = x_image, on_click = self.close, position = [self.position[0] + self.size[0]-x_size//2-x_border_size, self.position[1]-x_size//2-x_border_size], border_size = x_border_size)
 
 			self.parent.add_component(self.close_button, bypass_layer_check = True)
 

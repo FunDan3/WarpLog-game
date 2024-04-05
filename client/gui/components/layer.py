@@ -8,7 +8,9 @@ class layer(default_component):
 		if not components:
 			components = []
 		self.components = components
-
+		#In hopes of avoiding unexpected behavior
+		self.position = [0, 0]
+		self.size = [1980, 1080]
 	def render_on(self, surface):
 		for component in self.components:
 			component.render_on(surface)
