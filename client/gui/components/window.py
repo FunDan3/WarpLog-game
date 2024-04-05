@@ -41,6 +41,8 @@ class window(layer): #doesnt offset because it is part of UI
 			self.close_button.interactive = False
 
 	def on_added(self):
+		for component in self.components:
+			component.renderer = self.renderer
 		if self.closable:
 			x_size = 24
 			x_border_size = 4
@@ -55,7 +57,8 @@ class window(layer): #doesnt offset because it is part of UI
 
 
 	def add_component(self, component):
-		component.renderer = self.renderer
+		if self.renderer:
+			component.renderer = self.renderer
 		component.parent = self
 		component.offset = [self.position[0] + self.offset[0], self.position[1] + self.offset[1]]
 		self.components.append(component)

@@ -20,8 +20,13 @@ class layer(default_component):
 			if component.interactive:
 				component.event(event)
 
+	def on_add(self):
+		for component in self.components:
+			component.renderer = self.renderer
+
 	def add_component(self, component):
-		component.renderer = self.renderer
+		if self.renderer:
+			component.renderer = self.renderer
 		component.parent = self
 		component.offset = self.offset
 		self.components.append(component)
