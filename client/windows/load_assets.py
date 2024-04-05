@@ -24,7 +24,7 @@ async def load_assets(renderer, asset_map):
 	for name, load_data in asset_map.items():
 		loading_method, file = load_data
 		text.update_text(f"Loading file '{file}'")
-		await asyncio.sleep(0) #to let it render stuff
+		await renderer.one_time_loop() #to let it render stuff
 		loaded_asset = eval(loading_method % file)
 		past_path = "assets"
 		for name_chunk in name.split("."):
@@ -37,6 +37,9 @@ async def load_assets(renderer, asset_map):
 		file_size = os.path.getsize(file)
 		loaded_filesize += file_size
 		progress_bar.set_quantity(loaded_filesize, total_filesize)
+	text.update_text("Setting up anticheat...")
+	await renderer.one_time_loop()
+	components.text_oneline.load_anticheat()
 	await renderer.empty_components()
 	print(f"Loaded assets in {time.time() - start_time} seconds")
 	return assets
