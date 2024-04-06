@@ -55,6 +55,9 @@ class window(layer): #doesnt offset because it is part of UI
 
 			self.parent.add_component(self.close_button, bypass_layer_check = True)
 
+	def add_components(self, *args):
+		for arg in args:
+			self.add_component(arg)
 
 	def add_component(self, component):
 		if self.renderer:

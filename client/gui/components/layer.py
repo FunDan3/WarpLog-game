@@ -24,6 +24,10 @@ class layer(default_component):
 		for component in self.components:
 			component.renderer = self.renderer
 
+	def add_components(self, *args):
+		for arg in args:
+			self.add_component(arg)
+
 	def add_component(self, component):
 		if self.renderer:
 			component.renderer = self.renderer

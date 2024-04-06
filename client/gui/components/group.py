@@ -4,6 +4,10 @@ class group(layer):
 	def __init__(self, *components):
 		self.components = components
 
+	def add_components(self, *args):
+		for arg in args:
+			self.add_component(arg)
+
 	def add_component(self, component):
 		component.parent = self
 		component.offset = self.offset
