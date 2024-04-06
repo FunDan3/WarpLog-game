@@ -46,5 +46,5 @@ class image_button(default_component):
 	def event(self, event):
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			# this if statement is a mess but generaly it checks if mouse is within hitbox. It takes self.offset in consideration
-			if (event.pos[0]>=self.filler[0]+self.offset[0] and event.pos[0]<=self.filler[0]+self.offset[0]+self.filler[2]) and (event.pos[1]>=self.filler[1]+self.offset[1] and event.pos[1]<=self.filler[1]+self.offset[0]+self.filler[3]):
+			if (event.pos[0]>=self.filler[0]+self.offset[0] and event.pos[0]<=self.filler[0]+self.offset[0]+self.filler[2]) and (event.pos[1]>=self.filler[1]+self.offset[1] and event.pos[1]<=self.filler[1]+self.offset[1]+self.filler[3]):
 				self.on_click()
