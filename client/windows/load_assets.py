@@ -3,6 +3,7 @@ import pygame
 import asyncio
 import time
 from gui import components
+from lib import server_api
 
 class folder:
 	def __init__(self, **kwargs):
@@ -40,7 +41,11 @@ async def load_assets(renderer, asset_map):
 	text.update_text("Setting up anticheat...")
 	await renderer.one_time_loop()
 	components.text_oneline.load_anticheat()
+	text.update_text("Connecting to server...")
+	await renderer.one_time_loop()
+	connection = server_api.api("127.0.0.1" if os.path.exists("../development.mark") else "foxomet.ru", 21611) #Static because it is sent by server.
+	await connection.connect()
 	await renderer.empty_components()
 	print(f"Loaded assets in {time.time() - start_time} seconds")
-	return assets
+	return assets, connection
 
