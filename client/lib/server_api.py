@@ -34,7 +34,9 @@ class api:
 			password_hash,
 			len(login).to_bytes(1, "big", signed = False) + login.encode("utf-8")])
 		await self.connection.write(request)
-
+		error_size = int.from_bytes(await self.connection.read(4), "big", signed = False)
+		error = await self.connection.read(error_size)
+		return error.decode("utf-8")
 	async def connect(self):
 		self.connection = aconn()
 		await self.connection.connect(self.ip, self.port)

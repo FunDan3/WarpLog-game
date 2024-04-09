@@ -17,7 +17,8 @@ async def login_menu(renderer, assets, connection):
 		register_button.interactive = False
 		status_box.visible = False
 
-		error = await connection.authenticate(login, password, registration) #if fails returns error else None
+		error = await connection.authenticate(login, password, registration) #if fails returns error else empty string
+		status_box.update_text(error + (" " if not error else ""))
 
 		status_box.visible = True
 		login_button.interactive = True
