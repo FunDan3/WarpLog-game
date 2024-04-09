@@ -44,7 +44,13 @@ async def load_assets(renderer, asset_map):
 	text.update_text("Connecting to server...")
 	await renderer.one_time_loop()
 	connection = server_api.api("127.0.0.1" if os.path.exists("../development.mark") else "foxomet.ru", 21611) #Static because it is sent by server.
-	await connection.connect()
+	try:
+		await connection.connect()
+	except Exception as e:
+		text.color = [255, 64, 64]
+		text.update_text(f"Could not connect to server: {str(e)}")
+		while True:
+			await asyncio.sleep(2**32)
 	await renderer.empty_components()
 	print(f"Loaded assets in {time.time() - start_time} seconds")
 	return assets, connection
